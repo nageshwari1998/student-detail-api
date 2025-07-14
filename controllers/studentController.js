@@ -1,9 +1,13 @@
 const Student = require('../models/Student');
 
-// Get all students
+// Get all students, optionally filter by course
 exports.getStudents = async (req, res) => {
   try {
-    const students = await Student.find();
+    const filter = {};
+    if (req.query.course) {
+      filter.course = req.query.course;
+    }
+    const students = await Student.find(filter);
     res.json(students);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch students" });
@@ -57,8 +61,8 @@ exports.updateStudent = async (req, res) => {
 exports.deleteStudent = async (req, res) => {
   try {
     const deleted = await Student.findByIdAndDelete(req.params.id);
-    if (!deleted) return res.status(404).json({ error: "Student not found" });
-    res.json({ message: "Student deleted" });
+    if (!deleted) return res.status(404).json({ error: "Student not found or already deleted" });
+    res.json({ message: "Student deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: "Failed to delete student" });
   }

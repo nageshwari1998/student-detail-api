@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const studentRoutes = require("./routes/studentRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ mongoose
 
 // Routes
 app.use("/api/students", studentRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(3000, () => {
   console.log("🚀 Server running at http://localhost:3000");

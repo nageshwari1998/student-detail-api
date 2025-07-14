@@ -22,6 +22,10 @@ const studentSchema = new mongoose.Schema({
   course: {
     type: String,
     required: [true, "Course is required"]
+  },
+  year: {
+    type: String,
+    required: [true, "Year is required"]
   }
 });
 
